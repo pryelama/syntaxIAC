@@ -1,0 +1,9 @@
+region: ap-south-1
+aws_access: xxxxxxxxxxx
+aws_secret: xxxxxxxxxxxxxxxxxxx
+subnet_id: subnet-9f759df4
+port_no: 5432
+user: ansible
+az: ap-south-1a
+password: ansible123
+security_id: sg-096172bb9852cc4c9
