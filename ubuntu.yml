@@ -1,0 +1,18 @@
+- hosts: localhost
+  vars_files:
+          var.yml
+  tasks:
+  - name: ec2
+    ec2:
+            region: "{{ region }}"
+            image: ami-04bde106886a53080
+            instance_type: t2.micro
+            group_id: sg-096172bb9852cc4c9
+            key_name: awskey
+            count: 1
+            instance_tags:
+                    name: syn-app01
+            state: present
+            vpc_subnet_id: subnet-9f759df4
+            aws_access_key: "{{ aws_access }}"
+            aws_secret_key: "{{ aws_secret }}"
