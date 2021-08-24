@@ -1,0 +1,46 @@
+- hosts: tag_name_syn_app01
+  tasks:
+          - name: update apt
+            apt: update_cache=yes force_apt_get=yes
+
+          - name: install software
+            apt:
+                    state: present
+                    pkg:
+                            - "docker"
+                            - "docker.io"
+                            - "python3"
+                            - "python3-pip"
+
+
+          - name: upgrade
+            pip:
+                    name: pip
+                    extra_args: --upgrade
+
+          - name: install docker
+            pip:
+                    name:
+                            - "setuptools_rust"
+                            - "wheel"
+                            - "docker-compose"
+
+          - name: Creates directory
+            file:
+                    path: /tmp/syntax/
+                    state: directory
+
+          - name:
+            get_url:
+                    url: https://gist.githubusercontent.com/yassineselmi/1d929dced4e069fb338b2b4fbd8c5a0e/raw/3f7090dc3c80c4a4167014767d5847ea141a1f27/docker-compose-django.example.yml
+                    dest: /tmp/syntax/docker-compose.yml
+
+          - name: Run `docker-compose up` 
+            docker_compose:
+                    project_src: /tmp/syntax/
+                    build: no
+                    stopped: yes
+            register: output
+
+          - debug:
+                  var: output
