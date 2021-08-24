@@ -1,0 +1,25 @@
+- hosts: localhost
+  vars_files:
+          var.yml
+  tasks:
+          - name: create RDS instanc
+            rds_instance:
+                    allocated_storage: 10
+                    availability_zone: "{{ az }}"
+                    aws_access_key: "{{ aws_access }}"
+                    aws_secret_key: "{{ aws_secret }}"
+                    db_instance_class: "db.m5.large"
+                    db_instance_identifier: "my-test-rds"
+                    db_name: "tdb"
+                    db_subnet_group_name: "ansible"
+                    engine: "postgres"
+                    engine_version: "13.3"
+                    master_user_password: "{{ password }}"
+                    master_username: "{{ user }}"
+                    max_allocated_storage: 20
+                    port: "{{ port_no }}"
+                    region: "{{ region }}"
+                    state: "present"
+                    publicly_accessible: "yes"
+                    storage_type: "gp2"
+                    vpc_security_group_ids: "{{ security_id }}"
